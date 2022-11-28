@@ -78,7 +78,7 @@ namespace SortingAlgorithms.DL
 
             foreach (var x in vec)
             {
-                sw.WriteLine(x.Index.ToString() + "," + x.Id + "," + x.Name + "," + x.Website + "," + x.Country + "," + x.Description + "," + x.FoundedYear.ToString() + "," + x.Industry + "," + x.NoOfEmplployees.ToString());
+                sw.WriteLine(x.Index.ToString() + "," + x.Id + "," + x.Name + "," + x.Website + "," + x.Country + "," + x.Description + "," + x.FoundedYear.ToString() + "," + x.Industry + "," + x.NoOfEmployees.ToString());
             }
             sw.Flush();
             sw.Close();
@@ -90,9 +90,12 @@ namespace SortingAlgorithms.DL
                 bool isSwapped = false;
                 for (int y = 0; y < n - x - 1; y++)
                 {
-                    if (arr[y].NoOfEmplployees > arr[y + 1].NoOfEmplployees)
+                    if (arr[y].NoOfEmployees > arr[y + 1].NoOfEmployees)
                     {
-                        swap(arr[y], arr[y + 1]);
+                        Company temp = arr[y];
+                        arr[y]=arr[y + 1];
+                        arr[y + 1] = temp;
+                       
                         isSwapped = true;
                     }
                 }
@@ -103,12 +106,7 @@ namespace SortingAlgorithms.DL
             }
             return arr;
         }
-        public static void swap<T>(T a, T b)
-        {
-            T temp = a;
-            a = b;
-            b = temp;
-        }
+      
 
         public static List<Company> bubbleSortWithIndex(List<Company> arr, int n)
         {
@@ -119,7 +117,9 @@ namespace SortingAlgorithms.DL
                 {
                     if (arr[y].Index > arr[y + 1].Index)
                     {
-                        swap(arr[y], arr[y + 1]);
+                        Company temp = arr[y];
+                        arr[y] = arr[y + 1];
+                        arr[y + 1] = temp;
                         isSwapped = true;
                     }
                 }
@@ -132,13 +132,13 @@ namespace SortingAlgorithms.DL
         }
         public static int findMinimumEmployee(List<Company> arr, int start, int end)
         {
-            int min = arr[start].NoOfEmplployees;
+            int min = arr[start].NoOfEmployees;
             int minIndex = start;
             for (int x = start; x < end; x++)
             {
-                if (min > arr[x].NoOfEmplployees)
+                if (min > arr[x].NoOfEmployees)
                 {
-                    min = arr[x].NoOfEmplployees;
+                    min = arr[x].NoOfEmployees;
                     minIndex = x;
                 }
             }
@@ -163,7 +163,9 @@ namespace SortingAlgorithms.DL
             for (int x = 0; x < n - 1; x++)
             {
                 int minIndex = findMinimumEmployee(arr, x, n);
-                swap(arr[x], arr[minIndex]);
+                Company temp = arr[x];
+                arr[x] = arr[minIndex];
+                arr[minIndex] = temp;
             }
             return arr;
         }
@@ -172,7 +174,10 @@ namespace SortingAlgorithms.DL
             for (int x = 0; x < n - 1; x++)
             {
                 int minIndex = findMinimumIndex(arr, x, n);
-                swap(arr[x], arr[minIndex]);
+                Company temp = arr[x];
+                arr[x] = arr[minIndex];
+                arr[minIndex] = temp;
+             
             }
             return arr;
         }
@@ -180,14 +185,14 @@ namespace SortingAlgorithms.DL
         {
             for (int x = 1; x < n; x++)
             {
-                int key = arr[x].NoOfEmplployees;
+                Company key = arr[x];
                 int y = x - 1;
-                while (y >= 0 && arr[y].NoOfEmplployees > key)
+                while (y >= 0 && arr[y].NoOfEmployees > key.NoOfEmployees)
                 {
                     arr[y + 1] = arr[y];
                     y--;
                 }
-                arr[y + 1].NoOfEmplployees = key;
+                arr[y + 1] = key;
             }
             return arr;
         }
@@ -195,14 +200,14 @@ namespace SortingAlgorithms.DL
         {
             for (int x = 1; x < n; x++)
             {
-                int key = arr[x].Index;
+                Company key = arr[x];
                 int y = x - 1;
-                while (y >= 0 && arr[y].Index > key)
+                while (y >= 0 && arr[y].Index > key.Index)
                 {
                     arr[y + 1] = arr[y];
                     y--;
                 }
-                arr[y + 1].Index = key;
+                arr[y + 1] = key;
             }
             return arr;
         }
@@ -269,7 +274,7 @@ namespace SortingAlgorithms.DL
             Queue<Company> tempArr = new Queue<Company>();
             while (i <= mid && j <= end)
             {
-                if (arr[i].NoOfEmplployees < arr[j].NoOfEmplployees)
+                if (arr[i].NoOfEmployees < arr[j].NoOfEmployees)
                 {
                     tempArr.Enqueue(arr[i]);
                     i++;
@@ -298,7 +303,7 @@ namespace SortingAlgorithms.DL
         }
         public static bool compare(Company a, Company b)
         {
-            return a.NoOfEmplployees < b.NoOfEmplployees;
+            return a.NoOfEmployees < b.NoOfEmployees;
         }
         public static List<Company> quickSortWithEmployees(List<Company> arr, int start, int end)
         {
@@ -317,20 +322,65 @@ namespace SortingAlgorithms.DL
             int right = end;
             while (left <= right)
             {
-                while (left <= end && arr[left].NoOfEmplployees < arr[pivot].NoOfEmplployees)
+                while (left <= end && arr[left].NoOfEmployees < arr[pivot].NoOfEmployees)
                 {
                     left++;
                 }
-                while (right >= start && arr[right].NoOfEmplployees >= arr[pivot].NoOfEmplployees)
+                while (right >= start && arr[right].NoOfEmployees >= arr[pivot].NoOfEmployees)
                 {
                     right--;
                 }
                 if (left < right)
                 {
-                    swap(arr[left], arr[right]);
+                    Company temp1 = arr[left];
+                    arr[left] = arr[right];
+                    arr[right] = temp1;
+                   
                 }
             }
-            swap(arr[right], arr[pivot]);
+            Company temp = arr[pivot];
+            arr[pivot] = arr[right];
+            arr[right] = temp;
+          
+            return right;
+        }
+        public static List<Company> quickSortWithIndex(List<Company> arr, int start, int end)
+        {
+            if (start < end)
+            {
+                int pivot = start;
+                int mid = partitionWithIndex(arr, start + 1, end, pivot);
+                quickSortWithIndex(arr, start, mid - 1);
+                quickSortWithIndex(arr, mid + 1, end);
+            }
+            return arr;
+        }
+        public static int partitionWithIndex(List<Company> arr, int start, int end, int pivot)
+        {
+            int left = start;
+            int right = end;
+            while (left <= right)
+            {
+                while (left <= end && arr[left].Index < arr[pivot].Index)
+                {
+                    left++;
+                }
+                while (right >= start && arr[right].Index >= arr[pivot].Index)
+                {
+                    right--;
+                }
+                if (left < right)
+                {
+                    Company temp1 = arr[left];
+                    arr[left] = arr[right];
+                    arr[right] = temp1;
+
+                }
+            }
+            Company temp = arr[pivot];
+            arr[pivot] = arr[right];
+            arr[right] = temp;
+
             return right;
         }
         public static int parentIndex(int i)
@@ -380,7 +430,9 @@ namespace SortingAlgorithms.DL
                 }
                 if (arr[index].Index < arr[maxIndex].Index)
                 {
-                    swap(arr[index], arr[maxIndex]);
+                    Company temp = arr[index];
+                    arr[index] = arr[maxIndex];
+                    arr[maxIndex] = temp;
                     index = maxIndex;
                 }
                 else
@@ -395,7 +447,10 @@ namespace SortingAlgorithms.DL
             }
             for (int x = size - 1; x > 0; x--)
             {
-                swap(arr[0], arr[x]);
+                
+                Company temp = arr[0];
+                arr[0] = arr[x];
+                arr[x] = temp;
                 heapifyWithIndex(arr, x, 0);
             }
             return arr;
@@ -418,7 +473,7 @@ namespace SortingAlgorithms.DL
                 }
                 else
                 {
-                    if (arr[lIdx].NoOfEmplployees >= arr[rIdx].NoOfEmplployees)
+                    if (arr[lIdx].NoOfEmployees >= arr[rIdx].NoOfEmployees)
                     {
                         maxIndex = lIdx;
                     }
@@ -427,9 +482,12 @@ namespace SortingAlgorithms.DL
                         maxIndex = rIdx;
                     }
                 }
-                if (arr[index].NoOfEmplployees < arr[maxIndex].NoOfEmplployees)
+                if (arr[index].NoOfEmployees < arr[maxIndex].NoOfEmployees)
                 {
-                    swap(arr[index], arr[maxIndex]);
+
+                    Company temp = arr[index];
+                    arr[index] = arr[maxIndex];
+                    arr[maxIndex] = temp;
                     index = maxIndex;
                 }
                 else
@@ -444,7 +502,9 @@ namespace SortingAlgorithms.DL
             }
             for (int x = size - 1; x > 0; x--)
             {
-                swap(arr[0], arr[x]);
+                Company temp = arr[0];
+                arr[0] = arr[x];
+                arr[x] = temp;
                 heapifyWithEployees(arr, x, 0);
             }
             return arr;
@@ -457,7 +517,7 @@ namespace SortingAlgorithms.DL
             List<Company> output = new List<Company>(new Company[arr.Count]);
             for (int x = 0; x < arr.Count; x++)
             {
-                count[arr[x].NoOfEmplployees]++;
+                count[arr[x].NoOfEmployees]++;
             }
             for (int x = 1; x < count.Count; x++)
             {
@@ -465,20 +525,20 @@ namespace SortingAlgorithms.DL
             }
             for (int x = arr.Count - 1; x >= 0; x--)
             {
-                int index = count[arr[x].NoOfEmplployees] - 1;
-                count[arr[x].NoOfEmplployees]--;
+                int index = count[arr[x].NoOfEmployees] - 1;
+                count[arr[x].NoOfEmployees]--;
                 output[index] = arr[x];
             }
             return output;
         }
         public static int findMaximumEmployee(List<Company> vec)
         {
-            int max = vec[0].NoOfEmplployees;
+            int max = vec[0].NoOfEmployees;
             foreach (var a in vec)
             {
-                if (max < a.NoOfEmplployees)
+                if (max < a.NoOfEmployees)
                 {
-                    max = a.NoOfEmplployees;
+                    max = a.NoOfEmployees;
                 }
             }
             return max;
@@ -547,7 +607,7 @@ namespace SortingAlgorithms.DL
             List<Company> output = new List<Company>(new Company[arr.Count]);
             for (int x = 0; x < arr.Count; x++)
             {
-                count[(arr[x].NoOfEmplployees / place) % 10]++;
+                count[(arr[x].NoOfEmployees / place) % 10]++;
             }
             for (int x = 1; x < count.Count; x++)
             {
@@ -555,8 +615,8 @@ namespace SortingAlgorithms.DL
             }
             for (int x = arr.Count - 1; x >= 0; x--)
             {
-                int index = count[(arr[x].NoOfEmplployees / place) % 10] - 1;
-                count[(arr[x].NoOfEmplployees / place) % 10]--;
+                int index = count[(arr[x].NoOfEmployees / place) % 10] - 1;
+                count[(arr[x].NoOfEmployees / place) % 10]--;
                 output[index] = arr[x];
             }
             arr = output;
@@ -591,12 +651,12 @@ namespace SortingAlgorithms.DL
             }
             for (int x = 0; x < arr.Count; x++)
             {
-                bucket[arr[x].NoOfEmplployees].Add(arr[x]);
+                bucket[arr[x].NoOfEmployees].Add(arr[x]);
             }
             for (int x = 0; x < bucket.Count; x++)
             {
                 if (bucket[x].Count!=0)
-                bucket[x].Sort((a, b) => a.NoOfEmplployees.CompareTo(b.NoOfEmplployees));
+                bucket[x].Sort((a, b) => a.NoOfEmployees.CompareTo(b.NoOfEmployees));
 
             }
             int index = 0;

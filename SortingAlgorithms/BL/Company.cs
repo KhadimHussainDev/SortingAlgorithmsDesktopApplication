@@ -16,10 +16,10 @@ namespace SortingAlgorithms.BL
         private string description;
         private int foundedYear;
         private string industry;
-        private int noOfEmplployees;
+        private int noOfEmployees;
 
         public int Index { get => index; set => index = value; }
-        public int NoOfEmplployees { get => noOfEmplployees; set => noOfEmplployees = value; }
+        public int NoOfEmployees { get => noOfEmployees; set => noOfEmployees = value; }
         public string Name { get => name; set => name = value; }
         public string Id { get => id; set => id = value; }
         public string Website { get => website; set => website = value; }
@@ -38,7 +38,7 @@ namespace SortingAlgorithms.BL
             this.Description = description;
             this.FoundedYear = foundedYear;
             this.Industry = industry;
-            this.NoOfEmplployees = noOfEmployees;
+            this.NoOfEmployees = noOfEmployees;
         }
         public Company()
         {
