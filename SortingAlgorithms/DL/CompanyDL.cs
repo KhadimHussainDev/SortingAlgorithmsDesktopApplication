@@ -10,9 +10,8 @@ namespace SortingAlgorithms.DL
     public class CompanyDL
     {
         private static List<Company> companies = new List<Company>();
-
+        private static Random random = new Random();
         public static List<Company> Companies { get => companies; set => companies = value; }
-
         public static string parse(string line, int index)
         {
             int count = 0;
@@ -106,8 +105,6 @@ namespace SortingAlgorithms.DL
             }
             return arr;
         }
-      
-
         public static List<Company> bubbleSortWithIndex(List<Company> arr, int n)
         {
             for (int x = 0; x < n - 1; x++)
@@ -309,8 +306,13 @@ namespace SortingAlgorithms.DL
         {
             if (start < end)
             {
-                int pivot = start;
-                int mid = partitionWithEmployees(arr, start + 1, end, pivot);
+             
+                int pivot = random.Next(start, end);
+                Company temp1 = arr[start];
+                arr[start] = arr[pivot];
+                arr[pivot] = temp1;
+                pivot = start;
+                int mid = partitionWithEmployees(arr, start+1 , end, pivot);
                 quickSortWithEmployees(arr, start, mid - 1);
                 quickSortWithEmployees(arr, mid + 1, end);
             }
@@ -335,8 +337,9 @@ namespace SortingAlgorithms.DL
                     Company temp1 = arr[left];
                     arr[left] = arr[right];
                     arr[right] = temp1;
-                   
+
                 }
+                
             }
             Company temp = arr[pivot];
             arr[pivot] = arr[right];
@@ -348,7 +351,11 @@ namespace SortingAlgorithms.DL
         {
             if (start < end)
             {
-                int pivot = start;
+                int pivot = random.Next(start, end);
+                Company temp1 = arr[start];
+                arr[start] = arr[pivot];
+                arr[pivot] = temp1;
+                pivot = start;
                 int mid = partitionWithIndex(arr, start + 1, end, pivot);
                 quickSortWithIndex(arr, start, mid - 1);
                 quickSortWithIndex(arr, mid + 1, end);
@@ -701,6 +708,5 @@ namespace SortingAlgorithms.DL
             }
             return arr;
         }
-        //Bucket Sort with index
     }
 }

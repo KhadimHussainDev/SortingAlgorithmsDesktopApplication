@@ -157,11 +157,11 @@ namespace SortingAlgorithms
                 }
                 else if (sortAlgorithm == 4)
                 {
-                     CompanyDL.quickSortWithIndex(CompanyDL.Companies, 0,size);
+                    CompanyDL.Companies = CompanyDL.quickSortWithIndex(CompanyDL.Companies, 0,size);
                 }
                 else if (sortAlgorithm == 5)
                 {
-                     CompanyDL.heapSortWithIndex(CompanyDL.Companies, size);
+                    CompanyDL.Companies = CompanyDL.heapSortWithIndex(CompanyDL.Companies, size+1);
                 }
                 else if (sortAlgorithm == 6)
                 {
@@ -200,7 +200,7 @@ namespace SortingAlgorithms
                 }
                 else if (sortAlgorithm == 5)
                 {
-                    CompanyDL.Companies = CompanyDL.heapSortWithEmployees(CompanyDL.Companies, size);
+                    CompanyDL.Companies = CompanyDL.heapSortWithEmployees(CompanyDL.Companies, size+1);
                 }
                 else if (sortAlgorithm == 6)
                 {
@@ -233,8 +233,12 @@ namespace SortingAlgorithms
 
         private void storebtn_Click(object sender, EventArgs e)
         {
+            disable();
             CompanyDL.saveData(CompanyDL.Companies);
             MessageBox.Show("Data Saved into file...");
+            enable();
         }
+
+     
     }
 }
