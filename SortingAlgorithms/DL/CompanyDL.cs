@@ -23,7 +23,7 @@ namespace SortingAlgorithms.DL
                 {
                     flag = !flag;
                 }
-                if (line[i] == ',' && flag)
+                else if (line[i] == ',' && flag)
                 {
                     count++;
                 }
@@ -650,6 +650,7 @@ namespace SortingAlgorithms.DL
         }
         public static List<Company> bucketSortWithEmployyees(List<Company> arr, int noOfBuckets)
         {
+           
             List<List<Company>> bucket = new List<List<Company>>();
             for (int i = 0; i < noOfBuckets; i++)
             {
@@ -660,12 +661,12 @@ namespace SortingAlgorithms.DL
             {
                 bucket[arr[x].NoOfEmployees].Add(arr[x]);
             }
-            for (int x = 0; x < bucket.Count; x++)
+          /*  for (int x = 0; x < bucket.Count; x++)
             {
                 if (bucket[x].Count!=0)
                 bucket[x].Sort((a, b) => a.NoOfEmployees.CompareTo(b.NoOfEmployees));
 
-            }
+            }*/
             int index = 0;
            
             for (int x = 0; x < bucket.Count; x++)
@@ -680,8 +681,9 @@ namespace SortingAlgorithms.DL
         }
         public static List<Company> bucketSortWithIndex(List<Company> arr, int noOfBuckets)
         {
+            int max = findMaximumIndex(arr);
             List<List<Company>> bucket = new List<List<Company>>();
-            for (int i = 0; i < noOfBuckets; i++)
+            for (int i = 0; i < max+1; i++)
             {
                 List<Company> companies = new List<Company>();
                 bucket.Add(companies);
@@ -690,12 +692,11 @@ namespace SortingAlgorithms.DL
             {
                 bucket[arr[x].Index].Add(arr[x]);
             }
-            for (int x = 0; x < bucket.Count; x++)
+         /*  for (int x = 0; x < bucket.Count; x++)
             {
-                if (bucket[x].Count != 0)
                     bucket[x].Sort((a, b) => a.Index.CompareTo(b.Index));
 
-            }
+            }*/
             int index = 0;
 
             for (int x = 0; x < bucket.Count; x++)
